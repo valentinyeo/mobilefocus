@@ -6,15 +6,47 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Focus Wheel Application" />
     <title>Focus Wheel</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react.production.min.js"></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.min.js"></script>
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script src="App.js"></script>
-    <script src="FocusWheel.js"></script>
-  </body>
-</html>
+    
+    <script type="text/babel">
+      import { ArrowRight, Check } from 'lucide-react';
+      
+      const FocusWheel = () => {
+        const [activeField, setActiveField] = React.useState(0);
+        const [entries, setEntries] = React.useState(Array(12).fill(''));
+        
+        const handleEntryChange = (index, value) => {
+          const newEntries = [...entries];
+          newEntries[index] = value;
+          setEntries(newEntries);
+        };
+      
+        const handleNext = () => {
+          if (activeField < 11) {
+            setActiveField(activeField + 1);
+          }
+        };
+      
+        return (
+          <div className="min-h-screen bg-gray-50">
+            <div className="fixed top-0 left-0 right-0 bg-white shadow-md p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h1 className="text-lg font-semibold">Focus Wheel</h1>
+                <span className="text-sm text-gray-600">
+                  {activeField + 1} / 12
+                </span>
+              </div>
+              
+              <div className="relative
